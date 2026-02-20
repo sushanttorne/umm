@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <title>For My Forever | Urja</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Great+Vibes&family=Raleway:wght@200;300;400&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --deep: #1a0533;
+            --mid: #2d0a52;
+            --purple: #7c3aed;
+            --lavender: #c084fc;
+            --blush: #f0abfc;
+            --cream: #fdf4ff;
+            --gold: #f0c080;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Raleway', sans-serif;
+            background: var(--deep);
+            color: var(--cream);
+            overflow-x: hidden;
+            line-height: 1.7;
+        }
+
+        /* ── FLOATING PARTICLES ── */
+        .particles {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+        .particle {
+            position: absolute;
+            width: 4px; height: 4px;
+            background: var(--lavender);
+            border-radius: 50%;
+            opacity: 0;
+            animation: rise var(--dur, 8s) ease-in var(--delay, 0s) infinite;
+        }
+        @keyframes rise {
+            0%   { transform: translateY(100vh) scale(0); opacity: 0; }
+            10%  { opacity: 0.6; }
+            90%  { opacity: 0.2; }
+            100% { transform: translateY(-10vh) scale(1); opacity: 0; }
+        }
+
+        /* ── MUSIC BUTTON ── */
+        #musicBtn {
+            position: fixed;
+            top: clamp(12px, 3vw, 20px);
+            right: clamp(12px, 3vw, 20px);
+            z-index: 100;
+            background: rgba(124, 58, 237, 0.35);
+            backdrop-filter: blur(14px);
+            border: 1px solid rgba(192, 132, 252, 0.4);
+            color: #fff;
+            padding: 10px 18px;
+            border-radius: 40px;
+            font-family: 'Raleway', sans-serif;
+            font-size: clamp(12px, 3vw, 14px);
+            font-weight: 300;
+            letter-spacing: 0.08em;
+            cursor: pointer;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+        #musicBtn:hover { background: rgba(124, 58, 237, 0.6); }
+
+        /* ── HERO ── */
+        .hero {
+            position: relative;
+            min-height: 100svh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: clamp(100px, 16vw, 140px) clamp(30px, 8vw, 80px) clamp(80px, 12vw, 120px);
+            background: radial-gradient(ellipse 80% 60% at 50% 40%, #4c1d95 0%, #2d0a52 50%, #1a0533 100%);
+            overflow: visible;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23c084fc' fill-opacity='0.04'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            pointer-events: none;
+        }
+
+        .hero-name {
+            font-family: 'Great Vibes', cursive;
+            font-size: clamp(4rem, 20vw, 11rem);
+            background: linear-gradient(135deg, #f0c080, #f0abfc, #c084fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.3;
+            padding: 0.1em 0.2em;
+            animation: float 5s ease-in-out infinite;
+            position: relative;
+            z-index: 1;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-14px); }
+        }
+
+        .hero-sub {
+            font-size: clamp(0.75rem, 3vw, 1rem);
+            font-weight: 200;
+            letter-spacing: clamp(0.2em, 2vw, 0.5em);
+            text-transform: uppercase;
+            color: var(--blush);
+            margin-top: clamp(10px, 2vw, 20px);
+            position: relative;
+            z-index: 1;
+            opacity: 0.85;
+        }
+
+        .hero-cta {
+            margin-top: clamp(30px, 6vw, 50px);
+            position: relative;
+            z-index: 1;
+            display: inline-block;
+            background: linear-gradient(135deg, var(--gold), var(--blush));
+            color: var(--deep);
+            padding: clamp(12px, 3vw, 16px) clamp(28px, 7vw, 48px);
+            border-radius: 50px;
+            font-family: 'Raleway', sans-serif;
+            font-weight: 400;
+            font-size: clamp(13px, 3.5vw, 16px);
+            letter-spacing: 0.1em;
+            text-decoration: none;
+            text-transform: uppercase;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 0 30px rgba(240, 192, 128, 0.3);
+        }
+        .hero-cta:hover { transform: scale(1.05); box-shadow: 0 0 50px rgba(240, 192, 128, 0.5); }
+
+        /* ── DIVIDER ── */
+        .divider {
+            text-align: center;
+            padding: 8px 0;
+            color: var(--lavender);
+            font-size: clamp(18px, 4vw, 24px);
+            letter-spacing: 0.3em;
+        }
+
+        /* ── PHOTO SECTION ── */
+        .photos-section {
+            padding: clamp(50px, 10vw, 100px) clamp(16px, 4vw, 40px);
+            background: linear-gradient(180deg, #1a0533 0%, #2d0a52 100%);
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-title {
+            font-family: 'Great Vibes', cursive;
+            font-size: clamp(2rem, 8vw, 4rem);
+            color: var(--blush);
+            text-align: center;
+            margin-bottom: clamp(30px, 6vw, 60px);
+        }
+
+        .photos-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: clamp(16px, 4vw, 28px);
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        @media (min-width: 640px) {
+            .photos-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .photo-card {
+            position: relative;
+            border-radius: clamp(16px, 3vw, 24px);
+            overflow: hidden;
+            border: 1px solid rgba(192, 132, 252, 0.25);
+            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            background: var(--mid);
+            aspect-ratio: 3/4;
+        }
+
+        @media (min-width: 640px) {
+            .photo-card:nth-child(2) { margin-top: 40px; }
+        }
+
+        .photo-card:hover { transform: translateY(-8px) scale(1.02); box-shadow: 0 20px 60px rgba(124, 58, 237, 0.4); }
+
+        .photo-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center top;
+            display: block;
+        }
+
+        .photo-card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(76, 29, 149, 0.3) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        /* ── LETTERS SECTION ── */
+        .letters-section {
+            padding: clamp(50px, 10vw, 100px) clamp(16px, 5vw, 40px);
+            background: var(--deep);
+            position: relative;
+            z-index: 1;
+        }
+
+        .letter-card {
+            max-width: 760px;
+            margin: 0 auto clamp(40px, 8vw, 80px);
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(192, 132, 252, 0.2);
+            border-radius: clamp(20px, 4vw, 36px);
+            padding: clamp(28px, 6vw, 56px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .letter-card::before {
+            content: '"';
+            position: absolute;
+            top: -20px;
+            left: clamp(16px, 4vw, 30px);
+            font-family: 'Great Vibes', cursive;
+            font-size: clamp(80px, 20vw, 160px);
+            color: rgba(192, 132, 252, 0.08);
+            line-height: 1;
+            pointer-events: none;
+        }
+
+        .letter-card.right { border-left: none; border-right: 3px solid var(--lavender); }
+        .letter-card.left  { border-left: 3px solid var(--gold); }
+
+        .letter-title {
+            font-family: 'Great Vibes', cursive;
+            font-size: clamp(1.6rem, 6vw, 2.8rem);
+            color: var(--lavender);
+            margin-bottom: clamp(16px, 3vw, 28px);
+        }
+
+        .letter-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(1rem, 3.5vw, 1.25rem);
+            font-style: italic;
+            font-weight: 300;
+            color: rgba(253, 244, 255, 0.9);
+            white-space: pre-line;
+            line-height: 1.9;
+        }
+
+        /* ── POEM ── */
+        .poem-section {
+            padding: clamp(50px, 10vw, 100px) clamp(16px, 5vw, 40px);
+            background: linear-gradient(180deg, #1a0533 0%, #0f0220 100%);
+            position: relative;
+            z-index: 1;
+            display: flex;
+            justify-content: center;
+        }
+        .poem-card {
+            max-width: 720px;
+            width: 100%;
+            text-align: center;
+            padding: clamp(36px, 7vw, 64px) clamp(24px, 6vw, 56px);
+            border-radius: clamp(20px, 4vw, 36px);
+            background: rgba(240, 171, 252, 0.04);
+            border: 1px solid rgba(240, 171, 252, 0.15);
+            box-shadow: 0 0 80px rgba(124, 58, 237, 0.15), inset 0 0 40px rgba(240, 171, 252, 0.03);
+        }
+        .poem-card::before {
+            content: "✦  ✦  ✦";
+            display: block;
+            font-size: clamp(12px, 2.5vw, 16px);
+            color: var(--gold);
+            letter-spacing: 0.5em;
+            margin-bottom: clamp(16px, 3vw, 24px);
+            opacity: 0.7;
+        }
+        .poem-label {
+            font-size: clamp(10px, 2.5vw, 12px);
+            font-weight: 300;
+            letter-spacing: 0.35em;
+            text-transform: uppercase;
+            color: var(--gold);
+            opacity: 0.8;
+            margin-bottom: clamp(8px, 2vw, 14px);
+        }
+        .poem-title {
+            font-family: "Great Vibes", cursive;
+            font-size: clamp(2rem, 8vw, 3.5rem);
+            color: var(--blush);
+            margin-bottom: clamp(24px, 5vw, 40px);
+            line-height: 1.2;
+        }
+        .poem-lines {
+            display: flex;
+            flex-direction: column;
+            gap: clamp(10px, 2.5vw, 18px);
+        }
+        .poem-lines p {
+            font-family: "Cormorant Garamond", serif;
+            font-size: clamp(0.95rem, 3.2vw, 1.15rem);
+            font-weight: 300;
+            color: rgba(253, 244, 255, 0.88);
+            line-height: 1.8;
+        }
+        .poem-lines p:nth-child(odd) { color: rgba(240, 171, 252, 0.9); }
+        .poem-sign {
+            margin-top: clamp(28px, 5vw, 44px);
+            font-family: "Great Vibes", cursive;
+            font-size: clamp(1.4rem, 5vw, 2rem);
+            color: var(--gold);
+            opacity: 0.85;
+        }
+
+        /* ── CLOSING ── */
+        .closing {
+            padding: clamp(60px, 12vw, 120px) clamp(20px, 5vw, 40px);
+            text-align: center;
+            background: linear-gradient(180deg, var(--deep) 0%, #000 100%);
+            position: relative;
+            z-index: 1;
+        }
+
+        .closing h2 {
+            font-family: 'Great Vibes', cursive;
+            font-size: clamp(2.5rem, 12vw, 6rem);
+            background: linear-gradient(135deg, var(--gold), var(--blush));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: clamp(16px, 3vw, 28px);
+        }
+
+        .closing p {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(1rem, 3.5vw, 1.2rem);
+            font-style: italic;
+            color: var(--lavender);
+            max-width: 520px;
+            margin: 0 auto;
+            opacity: 0.85;
+        }
+
+        .heart {
+            font-size: clamp(48px, 12vw, 80px);
+            margin-top: clamp(30px, 6vw, 50px);
+            display: block;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.15); }
+        }
+
+        /* ── PASSWORD OVERLAY ── */
+        #lockScreen {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            background: radial-gradient(ellipse 80% 60% at 50% 40%, #4c1d95 0%, #2d0a52 50%, #1a0533 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 24px;
+        }
+        #lockScreen .lock-icon { font-size: clamp(48px, 12vw, 72px); margin-bottom: clamp(16px, 4vw, 28px); animation: float 4s ease-in-out infinite; }
+        #lockScreen h2 { font-family: 'Great Vibes', cursive; font-size: clamp(2rem, 9vw, 4rem); background: linear-gradient(135deg, #f0c080, #f0abfc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: clamp(8px, 2vw, 14px); }
+        #lockScreen p { font-size: clamp(12px, 3vw, 15px); font-weight: 200; letter-spacing: 0.15em; color: var(--lavender); margin-bottom: clamp(28px, 6vw, 44px); opacity: 0.8; }
+        #passwordInput { background: rgba(255,255,255,0.07); border: 1px solid rgba(192,132,252,0.4); border-radius: 50px; color: #fff; font-family: 'Raleway', sans-serif; font-size: clamp(14px, 4vw, 18px); font-weight: 300; letter-spacing: 0.2em; padding: clamp(12px, 3vw, 16px) clamp(24px, 6vw, 36px); text-align: center; width: 100%; max-width: 320px; outline: none; transition: border-color 0.3s, box-shadow 0.3s; }
+        #passwordInput::placeholder { color: rgba(192,132,252,0.4); letter-spacing: 0.1em; }
+        #passwordInput:focus { border-color: var(--blush); box-shadow: 0 0 24px rgba(240,171,252,0.2); }
+        #unlockBtn { margin-top: clamp(16px, 4vw, 24px); background: linear-gradient(135deg, var(--gold), var(--blush)); color: var(--deep); border: none; border-radius: 50px; font-family: 'Raleway', sans-serif; font-size: clamp(12px, 3.5vw, 15px); font-weight: 400; letter-spacing: 0.15em; text-transform: uppercase; padding: clamp(12px, 3vw, 16px) clamp(32px, 8vw, 52px); cursor: pointer; transition: transform 0.3s, box-shadow 0.3s; box-shadow: 0 0 30px rgba(240,192,128,0.3); }
+        #unlockBtn:hover { transform: scale(1.05); box-shadow: 0 0 50px rgba(240,192,128,0.5); }
+        #wrongMsg { margin-top: 16px; font-size: clamp(12px, 3vw, 14px); color: #f87171; letter-spacing: 0.1em; opacity: 0; transition: opacity 0.3s; min-height: 20px; }
+        @keyframes fadeOut { to { opacity: 0; pointer-events: none; } }
+        .lock-fade-out { animation: fadeOut 0.8s ease forwards; }
+    </style>
+</head>
+<body>
+
+
+<!-- PASSWORD LOCK -->
+<div id="lockScreen">
+    <div class="lock-icon">🔒</div>
+    <h2>For Someone Special</h2>
+    <p>Enter the password to continue</p>
+    <input type="password" id="passwordInput" placeholder="Your secret word..." maxlength="30" />
+    <button id="unlockBtn" onclick="checkPassword()">Open ✦</button>
+    <div id="wrongMsg">That's not it, try again 💜</div>
+</div>
+
+<audio id="loveSong" loop>
+    <source src="Gaurav Chatterji, Aasa Singh, Hansika Pareek - Kaise Ab Kahein From Gutar Gu (feat. Hrishi Giridhar Pratik Gangavane).mp3" type="audio/mpeg">
+</audio>
+
+<button id="musicBtn" onclick="toggleMusic()">🎵 Play Music</button>
+
+<!-- Particles -->
+<div class="particles" id="particles"></div>
+
+<!-- HERO -->
+<section class="hero">
+    <h1 class="hero-name">Urja</h1>
+    <p class="hero-sub">Every moment with you is a gift</p>
+    <a href="#letters" class="hero-cta">Read My Heart</a>
+</section>
+
+<!-- PHOTOS -->
+<section class="photos-section">
+    <h2 class="section-title">Prettiest Woman in the World</h2>
+    <div class="photos-grid">
+        <div class="photo-card">
+            <img src="urja1.jpg" alt="Urja">
+        </div>
+        <div class="photo-card">
+            <img src="urja2.jpg" alt="Urja">
+        </div>
+        <div class="photo-card">
+            <img src="urja3.jpg" alt="Urja">
+        </div>
+    </div>
+</section>
+
+<!-- LETTERS -->
+<section class="letters-section" id="letters">
+
+    <div class="letter-card left">
+        <h3 class="letter-title">How We Began...</h3>
+        <p class="letter-text">Dearest Urja,
+
+When we first met, I was skeptical. I couldn't understand why a girl as beautiful as you would even talk to me. But as we spoke, I saw the depth of your heart. I was moved by how you carry a smile that cures everything, even after everything you've been through.
+
+I was a bit "dumb" to the signs at first—like when you told me about your dad asking if there was someone special. But then there were those small moments... like when I held your bag and you told me no one had ever done that for you. Or the way you'd reach for my hand.
+
+It took me a moment to realize I could never let this go, but I'm here now, and I'm never leaving.</p>
+    </div>
+
+    <div class="letter-card right">
+        <h3 class="letter-title" style="text-align:right">My Promise to You</h3>
+        <p class="letter-text" style="text-align:right">To me, you are the most caring, logical, and brilliant person I know. I promise you that the future we build will be better than anything you've imagined. I promise to keep you safe, happy, and eventually, in the luxury you deserve.
+
+My love for you is endless. Even when we have our "Kalesh," I will always find a way to win you back. You are the only woman, after my mother, who I've truly let into my heart.
+
+Forget the past and look forward, because you have a home in me. Wherever you go, I will be there—thinking of you, fighting for you, and living for you.
+
+Forever yours,
+Sushant</p>
+    </div>
+
+</section>
+
+<!-- POEM -->
+<section class="poem-section">
+    <div class="poem-card">
+        <div class="poem-label">Mere Alfaaz</div>
+        <h3 class="poem-title">Woh Mod</h3>
+        <div class="poem-lines">
+            <p>Us mod par khade hain, jahan ab koi shart nahi,</p>
+            <p>Maine keh toh diya tha <em>"phir milenge nahi,"</em> par woh mera sach nahi.</p>
+            <p>Lonavala ki us fiza mein, khuda se bas tujhe manga hai,</p>
+            <p>Ab tu mile ya na mile, maine har lamha tere naam bandha hai.</p>
+            <p>Log kehte hain waqt beet jayega, par mera intezaar sadiyon ka hai,</p>
+            <p>Tujh mein dikhta hai aks-e-khuda, tu thikana meri duayon ka hai.</p>
+            <p>Tu kisi bhi mod par ho, tera saaya ban kar saath rahoonga,</p>
+            <p>Tu laut kar aaye na aaye, main umar bhar tera hi rahoonga.</p>
+        </div>
+        <div class="poem-sign">— Sushant</div>
+    </div>
+</section>
+
+<!-- CLOSING -->
+<section class="closing">
+    <h2>I Love You, Urja</h2>
+    <p>From our late night talks to our big dreams for the future — I am so grateful to have you by my side. Here's to us, and every adventure yet to come.</p>
+    <span class="heart">💜</span>
+</section>
+
+<script>
+    // Particles
+    const container = document.getElementById('particles');
+    for (let i = 0; i < 30; i++) {
+        const p = document.createElement('div');
+        p.className = 'particle';
+        p.style.cssText = `
+            left: ${Math.random() * 100}%;
+            --dur: ${6 + Math.random() * 10}s;
+            --delay: ${Math.random() * 10}s;
+            width: ${2 + Math.random() * 4}px;
+            height: ${2 + Math.random() * 4}px;
+            opacity: 0;
+        `;
+        container.appendChild(p);
+    }
+
+
+    // Password
+    const PASSWORD = "dhakdhak"; // change this!
+    function checkPassword() {
+        const val = document.getElementById('passwordInput').value.trim().toLowerCase();
+        if (val === PASSWORD) {
+            const lock = document.getElementById('lockScreen');
+            lock.classList.add('lock-fade-out');
+            setTimeout(() => lock.remove(), 800);
+        } else {
+            const msg = document.getElementById('wrongMsg');
+            msg.style.opacity = '1';
+            setTimeout(() => msg.style.opacity = '0', 2500);
+            document.getElementById('passwordInput').value = '';
+        }
+    }
+    document.getElementById('passwordInput').addEventListener('keydown', e => {
+        if (e.key === 'Enter') checkPassword();
+    });
+
+    // Music
+    const audio = document.getElementById('loveSong');
+    const btn = document.getElementById('musicBtn');
+    function toggleMusic() {
+        if (audio.paused) {
+            audio.play();
+            btn.textContent = '⏸ Pause';
+        } else {
+            audio.pause();
+            btn.textContent = '🎵 Play Music';
+        }
+    }
+</script>
+</body>
+</html>
